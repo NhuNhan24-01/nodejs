@@ -1,5 +1,6 @@
+import { Club } from "./entity/club"
+import { Player } from "./entity/player"
 import { DataSource } from "typeorm"
-
 export const myDataSource = new DataSource({
     type: "postgres",
     host: "localhost",
@@ -7,7 +8,7 @@ export const myDataSource = new DataSource({
     username: "postgres",
     password: "123456",
     database: "vietcom_db",
-    entities: ["src/entity/*.ts"],
-    logging: true,
+    entities: [Club,Player],
+    logging: false,
     synchronize: true,
 })
