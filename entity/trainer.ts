@@ -5,41 +5,40 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
-  OneToMany,
+  ManyToMany,
 } from "typeorm";
-import { Player } from "../entity/player";
-
-export enum ClubStatus {
+import { Player } from "./player";
+export enum TrainerStatus {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
 }
 @Entity()
-export class Club extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: "int" })
+export class Trainer extends BaseEntity {
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: "varchar" })
-  name: string;
+  name: String;
 
-  @Column({ type: "varchar" })
-  num: string;
+  @Column({ type: "int" })
+  exp: number;
 
   @Column({ type: "smallint" })
   age: number;
 
-  @Column({ type: "enum", enum: ClubStatus, default: ClubStatus.ACTIVE })
-  status: ClubStatus;
+  @Column({ type: "enum", enum: TrainerStatus, default: TrainerStatus.ACTIVE })
+  status: TrainerStatus;
 
   @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  createdAt: Date;
+  createAt: Date;
 
   @UpdateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
     onUpdate: "CURRENT_TIMESTAMP",
   })
-  updatedAt: Date;
-  player: any;
-  @OneToMany(() => Player, (player) => player.clubs)
+  upDateAt: Date;
+
+  @ManyToMany(() => Player, (player) => player.trainers)
   players: Player[];
 }
