@@ -8,7 +8,6 @@ const port = 3002
 myDataSource
     .initialize()
     .then(() => {
-        console.log(myDataSource)
         console.log("Data Source has been initialized!")
     })
     .catch((err) => {

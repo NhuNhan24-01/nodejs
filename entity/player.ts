@@ -1,29 +1,50 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BaseEntity,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
+import { Club } from "../entity/club";
 
 export enum PlayerStatus {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE',
+  ACTIVE = "ACTIVE",
+  INACTIVE = "INACTIVE",
 }
 @Entity()
 export class Player extends BaseEntity {
-  @PrimaryGeneratedColumn({type : 'int'})
+  [x: string]: any;
+  @PrimaryGeneratedColumn({ type: "int" })
   id: number;
 
-  @Column({ type: 'varchar'})
+  @Column({ type: "int", nullable: true })
+  clubId: number;
+
+  @Column({ type: "varchar" })
   name: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: "varchar" })
   numPlayer: string;
 
-  @Column({ type: 'smallint' })
+  @Column({ type: "smallint" })
   age: number;
 
-  @Column({ type: 'enum', enum: PlayerStatus, default: PlayerStatus.ACTIVE })
+  @Column({ type: "enum", enum: PlayerStatus, default: PlayerStatus.ACTIVE })
   status: PlayerStatus;
 
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+    onUpdate: "CURRENT_TIMESTAMP",
+  })
   updatedAt: Date;
+  @ManyToOne(() => Club, (club) => club.players)
+  @JoinColumn({ name: "clubId" })
+  clubs: Club;
 }
