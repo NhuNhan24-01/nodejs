@@ -1,7 +1,9 @@
 import * as express from "express";
 import PetController from "../controller/pet-controller";
 import { PetMiddleware } from "../middleware/validate/pet-validate";
+import { Pagination } from "../controller/pagination-controller";
 const petRouter = express.Router();
+petRouter.get("/search", Pagination.searchSortFilterPet);
 petRouter.post("/create", PetMiddleware.validatePet, PetController.createPet);
 petRouter.put("/edit/:id", PetController.editPet);
 petRouter.get("/get/:id", PetController.getInformationPet);

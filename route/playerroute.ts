@@ -1,7 +1,7 @@
 import * as express from "express";
 import { PlayerMiddleware } from "../middleware/validate/player-validate";
 import PlayerController from "../controller/playercontroller";
-import { Pagination } from "../controller/pagination";
+import { Pagination } from "../controller/pagination-controller";
 const playerRouter = express.Router();
 playerRouter.post(
   "/create",

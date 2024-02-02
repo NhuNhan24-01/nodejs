@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Pet } from "../entity/pet";
 import { Owner } from "../entity/owner";
 import { Skincare } from "../entity/skincare";
+import { Like } from "typeorm";
 class PetController {
   static createPet = async function (req: Request, res: Response, next: any) {
     try {
@@ -78,6 +79,7 @@ class PetController {
   ) {
     try {
       const getAllPet = await Pet.find({
+        // where: { owners: { name: Like(req.query.name) } },
         relations: {
           owners: true,
           skincares: true,
