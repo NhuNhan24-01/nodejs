@@ -1,19 +1,20 @@
 import * as express from "express";
 import { PlayerMiddleware } from "../middleware/validate/player-validate";
-import UserController from "../controller/playercontroller";
+import PlayerController from "../controller/playercontroller";
 const playerRouter = express.Router();
 playerRouter.post(
   "/create",
   PlayerMiddleware.validatePlayer,
-  UserController.createPlayer
+  PlayerController.createPlayer
 );
 
-playerRouter.put("/edit/:id", UserController.editPlayer);
+playerRouter.get("/search", PlayerController.searchSortFilterPlayer);
+playerRouter.put("/edit/:id", PlayerController.editPlayer);
 
-playerRouter.get("/get/:id", UserController.getInformationPlayer);
+playerRouter.get("/get/:id", PlayerController.getInformationPlayer);
 
-playerRouter.get("/getall", UserController.getInformationAllPlayer);
+playerRouter.get("/getall", PlayerController.getInformationAllPlayer);
 
-playerRouter.delete("/delete/:id", UserController.deletePlayer);
+playerRouter.delete("/delete/:id", PlayerController.deletePlayer);
 
 export default playerRouter;

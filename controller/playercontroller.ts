@@ -3,7 +3,8 @@ import { Player } from "../entity/player";
 import { Club } from "../entity/club";
 import { myDataSource } from "../app-data-source";
 import { Shoe } from "../entity/shoe";
-class UserController {
+import { ILike, Like } from "typeorm";
+class PlayerController {
   static createPlayer = async function (
     req: Request,
     res: Response,
@@ -112,5 +113,18 @@ class UserController {
       next(error);
     }
   };
+  static searchSortFilterPlayer = async function (
+    req: Request,
+    res: Response,
+    next: any
+  ) {
+    let where = {};
+    /// nếu tồn tại điều kiện tìm kiếm theo tên
+    if (req.query.name) {
+      where = { name: ILike(`%${req.query.name}%`) }; // thêm điều kiện tìm kiếm theo tên tại đây
+    }
+    const players = await Player.find({ where }); // truyền where tại đây
+    res.json(players);
+  };
 }
-export default UserController;
+export default PlayerController;
