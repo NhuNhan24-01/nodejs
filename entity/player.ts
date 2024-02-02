@@ -53,6 +53,7 @@ export class Player extends AbstractIdTimeEntity {
     },
   })
   trainers: Trainer[];
+
   @OneToOne(() => Shoe, (shoe) => shoe.players)
   @JoinColumn({ name: "shoeId" })
   shoes: Shoe;

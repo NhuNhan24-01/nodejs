@@ -1,6 +1,7 @@
 import * as express from "express";
 import { PlayerMiddleware } from "../middleware/validate/player-validate";
 import PlayerController from "../controller/playercontroller";
+import { Pagination } from "../controller/pagination";
 const playerRouter = express.Router();
 playerRouter.post(
   "/create",
@@ -8,9 +9,9 @@ playerRouter.post(
   PlayerController.createPlayer
 );
 
-playerRouter.get("/search", PlayerController.searchSortFilterPlayer);
+playerRouter.get("/search", Pagination.searchSortFilterPlayer);
 
-playerRouter.get("/arrange", PlayerController.arrangeSortFilterPlayer);
+// playerRouter.get("/arrange", PlayerController.arrangeSortFilterPlayer);
 
 playerRouter.put("/edit/:id", PlayerController.editPlayer);
 
