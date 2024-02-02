@@ -126,5 +126,19 @@ class PlayerController {
     const players = await Player.find({ where }); // truyền where tại đây
     res.json(players);
   };
+  static arrangeSortFilterPlayer = async function (
+    req: Request,
+    res: Response,
+    next: any
+  ) {
+    let orderBy = req.query.orderBy || "name";
+    let sortBy = req.query.sortBy || "ASC";
+    /// nếu tồn tại điều kiện cột sắp xếp và thứ tự sắp xếp
+
+    const order = { [orderBy as any]: sortBy };
+
+    const players = await Player.find({ order }); // truyền điều kiện order tại đây
+    res.json(players);
+  };
 }
 export default PlayerController;

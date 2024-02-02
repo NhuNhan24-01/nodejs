@@ -9,6 +9,9 @@ playerRouter.post(
 );
 
 playerRouter.get("/search", PlayerController.searchSortFilterPlayer);
+
+playerRouter.get("/arrange", PlayerController.arrangeSortFilterPlayer);
+
 playerRouter.put("/edit/:id", PlayerController.editPlayer);
 
 playerRouter.get("/get/:id", PlayerController.getInformationPlayer);
