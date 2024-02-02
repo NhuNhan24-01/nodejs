@@ -1,0 +1,10 @@
+import * as express from "express";
+import PetController from "../controller/pet-controller";
+import { PetMiddleware } from "../middleware/validate/pet-validate";
+const petRouter = express.Router();
+petRouter.post("/create", PetMiddleware.validatePet, PetController.createPet);
+petRouter.put("/edit/:id", PetController.editPet);
+petRouter.get("/get/:id", PetController.getInformationPet);
+petRouter.get("/getall", PetController.getAllInformationPet);
+petRouter.delete("/delete/:id", PetController.deletePet);
+export default petRouter;

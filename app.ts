@@ -3,6 +3,10 @@ import { myDataSource } from "./app-data-source";
 import playerRouter from "./route/playerroute";
 import clubRouter from "./route/clubroute";
 import trainerRouter from "./route/trainroute";
+import shoeRouter from "./route/shoe-route";
+import ownerRouter from "./route/owner-route";
+import petRouter from "./route/pet-route";
+import skincareRouter from "./route/skincare-route";
 const app = express();
 const port = 3002;
 //establish database connection
@@ -21,6 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/player", playerRouter);
 app.use("/club", clubRouter);
 app.use("/trainer", trainerRouter);
+app.use("/shoe", shoeRouter);
+app.use("/owner", ownerRouter);
+app.use("/pet", petRouter);
+app.use("/skincare", skincareRouter);
 app.listen(port, function () {
   console.log("Your app running on port " + port);
 });

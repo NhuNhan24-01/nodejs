@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Player } from "../entity/player";
 import { Club } from "../entity/club";
 import { myDataSource } from "../app-data-source";
+import { Shoe } from "../entity/shoe";
 class UserController {
   static createPlayer = async function (
     req: Request,
@@ -10,11 +11,18 @@ class UserController {
   ) {
     try {
       const newPlayer = new Player();
-      const { clubId, name, num, age, status } = req.body;
+      const { shoeId, clubId, name, num, age, status } = req.body;
       const club = await Club.findOneBy({
         id: clubId,
       });
       if (!club) throw new Error(`Can't find club with clubId ${clubId}`);
+
+      const shoe = await Shoe.findOneBy({
+        id: shoeId,
+      });
+      if (!shoe) throw new Error(`Can't find shoe with shoeID ${shoeId}`);
+
+      newPlayer.shoeId = shoeId;
       newPlayer.clubId = clubId;
       newPlayer.name = name;
       newPlayer.num = num;
@@ -32,7 +40,10 @@ class UserController {
         id: Number(req.params.id),
       });
       console.log(player);
-      const { clubId, name, num, age, status } = req.body;
+      const { shoeId, clubId, name, num, age, status } = req.body;
+      if (shoeId) {
+        player.shoeId = shoeId;
+      }
       if (clubId) {
         player.clubId = clubId;
       }
@@ -78,6 +89,7 @@ class UserController {
       const player = await Player.find({
         relations: {
           clubs: true,
+          shoes: true,
         },
       });
       res.json(player);

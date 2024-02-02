@@ -1,23 +1,13 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  BaseEntity,
-  OneToMany,
-} from "typeorm";
+import { Column, Entity, OneToMany } from "typeorm";
 import { Player } from "../entity/player";
+import { AbstractIdTimeEntity } from "./base-entity";
 
 export enum ClubStatus {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
 }
 @Entity()
-export class Club extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: "int" })
-  id: number;
-
+export class Club extends AbstractIdTimeEntity {
   @Column({ type: "varchar" })
   name: string;
 
@@ -30,16 +20,6 @@ export class Club extends BaseEntity {
   @Column({ type: "enum", enum: ClubStatus, default: ClubStatus.ACTIVE })
   status: ClubStatus;
 
-  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  createdAt: Date;
-
-  @UpdateDateColumn({
-    type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP",
-    onUpdate: "CURRENT_TIMESTAMP",
-  })
-  updatedAt: Date;
-  player: any;
   @OneToMany(() => Player, (player) => player.clubs)
   players: Player[];
 }

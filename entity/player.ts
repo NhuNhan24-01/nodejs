@@ -1,31 +1,28 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  BaseEntity,
-  ManyToOne,
+  Entity,
   JoinColumn,
-  ManyToMany,
   JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToOne,
 } from "typeorm";
 import { Club } from "../entity/club";
+import { AbstractIdTimeEntity } from "./base-entity";
 import { Trainer } from "./trainer";
-import { join } from "path";
+import { Shoe } from "./shoe";
 
 export enum PlayerStatus {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
 }
 @Entity()
-export class Player extends BaseEntity {
-  [x: string]: any;
-  @PrimaryGeneratedColumn({ type: "int" })
-  id: number;
-
-  @Column({ type: "int" })
+export class Player extends AbstractIdTimeEntity {
+  @Column({ type: "int", nullable: true })
   clubId: number;
+
+  @Column({ type: "int", nullable: true })
+  shoeId: number;
 
   @Column({ type: "varchar" })
   name: string;
@@ -39,15 +36,6 @@ export class Player extends BaseEntity {
   @Column({ type: "enum", enum: PlayerStatus, default: PlayerStatus.ACTIVE })
   status: PlayerStatus;
 
-  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  createdAt: Date;
-
-  @UpdateDateColumn({
-    type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP",
-    onUpdate: "CURRENT_TIMESTAMP",
-  })
-  updatedAt: Date;
   @ManyToOne(() => Club, (club) => club.players)
   @JoinColumn({ name: "clubId" })
   clubs: Club;
@@ -65,4 +53,7 @@ export class Player extends BaseEntity {
     },
   })
   trainers: Trainer[];
+  @OneToOne(() => Shoe, (shoe) => shoe.players)
+  @JoinColumn({ name: "shoeId" })
+  shoes: Shoe;
 }

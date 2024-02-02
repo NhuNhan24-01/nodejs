@@ -1,22 +1,12 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  BaseEntity,
-  ManyToMany,
-} from "typeorm";
+import { Column, Entity, ManyToMany } from "typeorm";
+import { AbstractIdTimeEntity } from "./base-entity";
 import { Player } from "./player";
 export enum TrainerStatus {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
 }
 @Entity()
-export class Trainer extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Trainer extends AbstractIdTimeEntity {
   @Column({ type: "varchar" })
   name: String;
 
@@ -28,16 +18,6 @@ export class Trainer extends BaseEntity {
 
   @Column({ type: "enum", enum: TrainerStatus, default: TrainerStatus.ACTIVE })
   status: TrainerStatus;
-
-  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  createAt: Date;
-
-  @UpdateDateColumn({
-    type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP",
-    onUpdate: "CURRENT_TIMESTAMP",
-  })
-  upDateAt: Date;
 
   @ManyToMany(() => Player, (player) => player.trainers)
   players: Player[];
