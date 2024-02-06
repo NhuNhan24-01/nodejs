@@ -88,7 +88,7 @@ export class Pagination {
         weight: Between(req.query.startWeight, req.query.endWeight) as any,
       };
     }
-    console.log(where);
+    // console.log(where);
     const [result, total] = await Pet.findAndCount({
       relations: {
         owners: true,

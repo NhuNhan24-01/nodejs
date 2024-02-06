@@ -6,6 +6,9 @@ import { Shoe } from "./entity/shoe";
 import { Owner } from "./entity/owner";
 import { Pet } from "./entity/pet";
 import { Skincare } from "./entity/skincare";
+import { League } from "./entity/league";
+import { Team } from "./entity/team";
+import { Match } from "./entity/match";
 export const myDataSource = new DataSource({
   type: "postgres",
   host: "localhost",
@@ -13,7 +16,18 @@ export const myDataSource = new DataSource({
   username: "postgres",
   password: "123456",
   database: "vietcom_db",
-  entities: [Club, Player, Trainer, Shoe, Owner, Pet, Skincare],
+  entities: [
+    Club,
+    Player,
+    Trainer,
+    Shoe,
+    Owner,
+    Pet,
+    Skincare,
+    League,
+    Team,
+    Match,
+  ],
   logging: false,
   synchronize: true,
 });
