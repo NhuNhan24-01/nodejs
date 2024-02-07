@@ -1,9 +1,15 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { AbstractIdTimeEntity } from "./base-entity";
 import { Team } from "./team";
 
 @Entity()
 export class Match extends AbstractIdTimeEntity {
+  @Column({ type: "int", nullable: true })
+  homeTeamId: Number;
+
+  @Column({ type: "int", nullable: true })
+  awayTeamId: Number;
+
   @Column({ type: "varchar" })
   homeGoal: String;
 
@@ -11,13 +17,16 @@ export class Match extends AbstractIdTimeEntity {
   awayGoal: String;
 
   @Column({ type: "date" })
-  Date: Date;
+  date: Date;
 
   @Column({ type: "varchar" })
   venue: String;
 
-  @ManyToOne(() => Team, (team) => team.homeMatch)
-  homeTeam: Team[];
-  @ManyToOne(() => Team, (team) => team.awayMatch)
-  awayTeam: Team[];
+  @ManyToOne(() => Team, (team) => team.homeMatchs)
+  @JoinColumn({ name: "homeTeamId" })
+  homeTeams: Team[];
+
+  @ManyToOne(() => Team, (team) => team.awayMatchs)
+  @JoinColumn({ name: "awayTeamId" })
+  awayTeams: Team[];
 }

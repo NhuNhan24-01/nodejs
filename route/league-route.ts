@@ -1,0 +1,11 @@
+import { Pagination } from "../controller/pagination-controller";
+import LeagueController from "../controller/league-controller";
+import * as express from "express";
+const leagueRouter = express.Router();
+leagueRouter.post("/create", LeagueController.createLeague);
+leagueRouter.get("/search", Pagination.searchSortFilterLeague);
+leagueRouter.put("/edit/:id", LeagueController.editLeague);
+leagueRouter.get("/get/:id", LeagueController.getInformationLeague);
+leagueRouter.get("/getall", LeagueController.getAllInformationLeague);
+leagueRouter.delete("/delete/:id", LeagueController.deleteLeague);
+export default leagueRouter;

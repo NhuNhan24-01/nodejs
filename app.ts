@@ -7,6 +7,9 @@ import shoeRouter from "./route/shoe-route";
 import ownerRouter from "./route/owner-route";
 import petRouter from "./route/pet-route";
 import skincareRouter from "./route/skincare-route";
+import leagueRouter from "./route/league-route";
+import teamRouter from "./route/team-route";
+import matchRouter from "./route/match-route";
 const app = express();
 const port = 3002;
 //establish database connection
@@ -29,6 +32,9 @@ app.use("/shoe", shoeRouter);
 app.use("/owner", ownerRouter);
 app.use("/pet", petRouter);
 app.use("/skincare", skincareRouter);
+app.use("/league", leagueRouter);
+app.use("/team", teamRouter);
+app.use("/match", matchRouter);
 app.listen(port, function () {
   console.log("Your app running on port " + port);
 });

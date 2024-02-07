@@ -5,7 +5,7 @@ import { Match } from "./match";
 
 @Entity()
 export class Team extends AbstractIdTimeEntity {
-  @Column({ type: "int" })
+  @Column({ type: "int", nullable: true })
   leagueId: Number;
 
   @Column({ type: "varchar" })
@@ -19,11 +19,14 @@ export class Team extends AbstractIdTimeEntity {
 
   @Column({ type: "int" })
   founded: Number;
-  @ManyToOne(() => League, (League) => League.team)
-  // @JoinColumn({ name: "LeagueId" })
-  league: League[];
-  @OneToMany(() => Match, (match) => match.awayTeam)
-  homeMatch: Match[];
-  @OneToMany(() => Match, (match) => match.homeTeam)
-  awayMatch: Match[];
+
+  @ManyToOne(() => League, (League) => League.teams)
+  @JoinColumn({ name: "leagueId" })
+  leagues: League;
+
+  @OneToMany(() => Match, (match) => match.awayTeams)
+  homeMatchs: Match[];
+
+  @OneToMany(() => Match, (match) => match.homeTeams)
+  awayMatchs: Match[];
 }

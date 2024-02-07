@@ -12,6 +12,7 @@ export class League extends AbstractIdTimeEntity {
 
   @Column({ type: "int" })
   founded: Number;
-  @OneToMany(() => Team, (team) => team.league)
-  team: Team[];
+
+  @OneToMany(() => Team, (team) => team.leagues)
+  teams: Team[];
 }
